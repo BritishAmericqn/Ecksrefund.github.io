@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Refunder</title>
+  <h1>Here you can refund your units, just enter in what you want to sell and we'll give the price</h1>
+  <p>This site was made by BritishAmerican#0001, also, use exact names for units</p>
+
+</head>
+<body>
+<input type="text" id="unit" name="Unit">
+<input type="button" value="submit" onclick="addUnit()">
+<input type="text" id="amount" name="UnitAmount">
+<p id = "refundCost"></p>
+<p id = "refundedShips"></p>
+</body>
+<script>
+  var foundUnit = false;
+  let i;
+  let k;
+  //units are normal units, in shops year-round, first shop is x1, followed by nr
+  var units = ["tie fighters","tie bomber", "Zeta class cargo shuttle", "tie interceptor", "arc 170", "preybird-class starfighter",
+    "droid tri fighter","lambda class shuttle","svelte-class imperial shuttle","tie/d defender", "tie defender", "gozanti class cruiser",
+  "vanguard-class heavy assault gunship", "vt-49 decimator", "cr25", "burst fire corvette", "far*reach iv pqr", "adz-class patrol destroyer",
+  "warlord dropship", "imperial customs corvette", "raider class corvette", "c9979 landing ship", "vibre-class assault cruiser",
+    "bayonet class light cruiser", "crusader xx-777 prototype droid frigate", "arquitens command cruiser", "lancer-class frigate",
+    "victory 2-class frigate", "quasar fire-class cruiser/carrier", "pelta-class frigate", "munificent-class cruiser",
+    "gladiator class star destroyer", "eidolon-type strike cruiser", "dreadnought class heavy cruiser", "providence-class carrier destroyer",
+  "acclamator class transport dropship", "victory i class star destroyer", "victory ii class star destroyer", "imperial ii star destroyer",
+  "secutor-class battlecruiser", "bellator-class dreadnought", "executor class star destroyer"];
+
+  //special units are units in shops that are temporary
+  var specialUnits = [""];
+  var cost = [100000, 250000, 500000, 400000, 500000, 500000, 600000, 1000000, 1000000, 2000000, 2000000, 2000000, 3000000, 4000000, 5000000,
+    4000000, 6000000, 7500000, 8000000, 10000000, 12000000, 15000000, 18000000, 18000000, 20000000, 20000000, 20000000, 20000000, 20000000,
+  25000000, 45000000, 50000000, 52500000, 55000000, 70000000, 75000000, 80000000, 90000000, 125000000, 200000000,850000000, 1500000000];
+
+  var shipsRefunded = [];
+  var refundList = [];
+
+  var totalCost = 0;
+  var refundCost = totalCost*.9;
+  function addUnit() {
+    var searchUnit = document.getElementById("unit").value;
+    var lowercaseSearchUnit = searchUnit.toLowerCase();
+    var amountPer = document.getElementById("amount").value;
+
+    for (i=0; i < units.length; i++) {
+      if (lowercaseSearchUnit == units[i]) {
+        totalCost += cost[i]*amountPer;
+        console.log(totalCost);
+        refundCost = totalCost*.9;
+        console.log(refundCost);
+        window.foundUnit = true;
+        shipsRefunded.push(searchUnit);
+        console.log(shipsRefunded);
+        window.plural = "";
+        if (amountPer > 1) {window.plural = "s";}
+        document.getElementById("refundCost").innerHTML = refundCost;
+        refundList.splice(1, 0, amountPer + " " + searchUnit + window.plural)
+        document.getElementById("refundedShips").innerHTML = refundList;
+      }
+      if (searchUnit == specialUnits[i]) {alert("That's a special unit!")}
+    }
+    if (window.foundUnit == false) {alert("Please check spelling, use the official name of the ship according to it's shop");
+      console.log(searchUnit);
+
+    }
+  }
+
+  function addCost() {
+
+  }
+
+</script>
+</html>
